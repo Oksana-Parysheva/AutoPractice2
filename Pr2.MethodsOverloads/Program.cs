@@ -7,6 +7,11 @@ namespace Pr2.MethodsOverloads
     {
         public static double Maximum(params double[] numbers)
         {
+            double max = numbers[0];
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                max = Maximum(max, numbers[i]);
+            }
             return numbers.Max();
         }
 
