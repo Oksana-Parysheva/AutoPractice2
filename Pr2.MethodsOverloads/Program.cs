@@ -11,6 +11,7 @@ namespace Pr2.MethodsOverloads
             for (int i = 1; i < numbers.Length; i++)
             {
                 max = Maximum(max, numbers[i]);
+                var temp = i;
             }
             return numbers.Max();
         }
