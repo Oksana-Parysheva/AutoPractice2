@@ -15,6 +15,16 @@ namespace Pr2.MethodsOverloads
             return numbers.Max();
         }
 
+        public static double MaximumNew(params double[] numbers)
+        {
+            double max = numbers[0];
+            for (int i = 1; i < numbers.Length; i++)
+            {
+                max = Maximum(max, numbers[i]);
+            }
+            return numbers.Max();
+        }
+
         public static double Maximum(double number1, double number2)
         {
             if (number1 > number2)
