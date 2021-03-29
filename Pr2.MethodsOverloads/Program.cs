@@ -1,10 +1,45 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Pr2.MethodsOverloads
 {
-    class Program
+    static class Program
     {
+        static T FindMax<T>(IEnumerable<T> en)
+            where T : IComparable
+        {
+            bool firstTime = true;
+            T max = default(T);
+            foreach (var e in en)
+            {
+                if (firstTime || max.CompareTo(e) < 0)
+                {
+                    max = e;
+                    firstTime = false;
+                }
+            }
+
+            return max;
+        }
+
+        static T FindMaxExt<T>(this IEnumerable<T> en)
+            where T : IComparable
+        {
+            bool firstTime = true;
+            T max = default(T);
+            foreach (var e in en)
+            {
+                if (firstTime || max.CompareTo(e) < 0)
+                {
+                    max = e;
+                    firstTime = false;
+                }
+            }
+
+            return max;
+        }
+
         public static double Maximum(params double[] numbers)
         {
             double max = numbers[0];
@@ -13,6 +48,7 @@ namespace Pr2.MethodsOverloads
                 max = Maximum(max, numbers[i]);
                 var temp = i;
             }
+
             return numbers.Max();
         }
 
@@ -64,6 +100,10 @@ namespace Pr2.MethodsOverloads
 
             Console.WriteLine($"Max number is {Maximum(arrayNumbers)}");
             Console.WriteLine($"Max number is {Maximum("str1", "str2")}");
+            Console.WriteLine($"Generic :: Max number is {FindMax(new[] { "str1", "str2", "str0", "str4" })}");
+            Console.WriteLine($"Generic :: Max number is {FindMax(arrayNumbers)}");
+            Console.WriteLine($"Extention :: Max number is {new[] { "str1", "str2", "str0", "str4" }.FindMaxExt()}");
+            Console.WriteLine($"Extention :: Max number is {arrayNumbers.FindMaxExt()}");
 
             Console.WriteLine(Maximum() == null ? "No params" : $"Max number is {Maximum()}");
             Console.ReadLine();
